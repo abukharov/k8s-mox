@@ -9,6 +9,7 @@ cluster_nodes = {
     node_cpus       = 2
     node_memory     = 2048
     node_disk_store = "faststor"
+    ceph_network_ip_address = "10.113.1.11/27"
   }
 }
 
@@ -18,5 +19,6 @@ cluster_masters = {
     node_cpus       = 2
     node_memory     = 4096
     node_disk_store = "faststor"
+    ceph_network_ip_address = "10.113.1.12/27"
   },
 }

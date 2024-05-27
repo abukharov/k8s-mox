@@ -1,17 +1,3 @@
-resource "proxmox_virtual_environment_file" "ubuntu_cloud_image" {
-  content_type = "iso"
-  datastore_id = "isostor"
-  node_name    = "caspar"
-
-  source_file {
-    # you may download this image locally on your workstation and then use the local path instead of the remote URL
-    path      = "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
-
-    # you may also use the SHA256 checksum of the image to verify its integrity
-    checksum = "b60205f4cc48a24b999ad0bd61ceb9fe28abfe4ac3701acb7bb5d6b0b5fdc624"
-  }
-}
-
 module "masters" {
   source = "./modules/k8s_node"
 
@@ -22,7 +8,7 @@ module "masters" {
   proxmox_network_bridge = "vmbr0"
   proxmox_ceph_network_bridge = "cebr0"
   domainname            = "cosmos.st"
-  image_file            = proxmox_virtual_environment_file.ubuntu_cloud_image.id
+  image_file            = "isostor:iso/ubuntu-24.04-server-cloudimg-amd64.img"
 
   for_each = var.cluster_masters
   proxmox_node = each.value.proxmox_node
@@ -43,7 +29,7 @@ module "workers" {
   proxmox_network_bridge = "vmbr0"
   proxmox_ceph_network_bridge = "cebr0"
   domainname            = "cosmos.st"
-  image_file            = proxmox_virtual_environment_file.ubuntu_cloud_image.id
+  image_file            = "isostor:iso/ubuntu-24.04-server-cloudimg-amd64.img"
 
   for_each = var.cluster_nodes
   proxmox_node = each.value.proxmox_node
