@@ -5,7 +5,7 @@ module "masters" {
     proxmox = proxmox
   }
 
-  proxmox_network_bridge = "vmbr0"
+  proxmox_network_bridge = "vmvnet"
   proxmox_ceph_network_bridge = "cebr0"
   domainname            = "cosmos.st"
   image_file            = "isostor:iso/ubuntu-24.04-server-cloudimg-amd64.img"
@@ -26,7 +26,7 @@ module "workers" {
     proxmox = proxmox
   }
 
-  proxmox_network_bridge = "vmbr0"
+  proxmox_network_bridge = "vmvnet"
   proxmox_ceph_network_bridge = "cebr0"
   domainname            = "cosmos.st"
   image_file            = "isostor:iso/ubuntu-24.04-server-cloudimg-amd64.img"

@@ -10,6 +10,12 @@ package_upgrade: true
 
 packages:
   - qemu-guest-agent
+  - ceph-fuse
+
+write_files:
+  - path: /etc/modules-load.d/rbd.conf
+    content: |
+      rbd
 
 timezone: Australia/Melbourne
 
