@@ -8,13 +8,14 @@ module "masters" {
   proxmox_network_bridge = "vmvnet"
   proxmox_ceph_network_bridge = "cebr0"
   domainname            = "cosmos.st"
-  image_file            = "isostor:iso/ubuntu-24.04-server-cloudimg-amd64.img"
 
   for_each = var.cluster_masters
   proxmox_node = each.value.proxmox_node
+  image_file = each.value.disk_image
   hostname = each.key
   cpus = each.value.node_cpus
   memory = each.value.node_memory
+  bios_type = each.value.bios_type
   proxmox_datastore = each.value.node_disk_store
   ceph_network_ip_address = each.value.ceph_network_ip_address
 }
@@ -29,13 +30,14 @@ module "workers" {
   proxmox_network_bridge = "vmvnet"
   proxmox_ceph_network_bridge = "cebr0"
   domainname            = "cosmos.st"
-  image_file            = "isostor:iso/ubuntu-24.04-server-cloudimg-amd64.img"
 
   for_each = var.cluster_nodes
   proxmox_node = each.value.proxmox_node
+  image_file = each.value.disk_image
   hostname = each.key
   cpus = each.value.node_cpus
   memory = each.value.node_memory
+  bios_type = each.value.bios_type
   proxmox_datastore = each.value.node_disk_store
   ceph_network_ip_address = each.value.ceph_network_ip_address
 }

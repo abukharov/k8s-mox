@@ -44,6 +44,11 @@ variable "memory" {
   type = number
 }
 
+variable "bios_type" {
+  description = "BIOS type for the VM"
+  type = string
+}
+
 variable "image_file" {
   description = "Path to the cloud image file"
   type = string

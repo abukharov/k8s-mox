@@ -35,6 +35,8 @@ variable "opnsense_iface" {
 variable "cluster_nodes" {
   type = map(object({
     proxmox_node = string
+    disk_image = string
+    bios_type = string
     node_cpus = number
     node_memory = number
     node_disk_store = string
@@ -45,6 +47,8 @@ variable "cluster_nodes" {
 variable "cluster_masters" {
   type = map(object({
     proxmox_node = string
+    disk_image = string
+    bios_type = string
     node_cpus = number
     node_memory = number
     node_disk_store = string

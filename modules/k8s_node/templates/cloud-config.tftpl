@@ -11,6 +11,8 @@ package_upgrade: true
 packages:
   - qemu-guest-agent
   - ceph-fuse
+  - mdadm
+  - lvm2
 
 write_files:
   - path: /etc/modules-load.d/rbd.conf

@@ -30,6 +30,19 @@ resource "proxmox_virtual_environment_vm" "k8s_node_vm" {
     dedicated = var.memory
   }
 
+  bios = var.bios_type
+
+  machine = var.bios_type == "ovmf" ? "q35" : ""
+
+  dynamic "efi_disk" {
+    for_each = var.bios_type == "ovmf" ? ["apply"] : []
+    content {
+      datastore_id = var.proxmox_datastore
+      type         = "4m"
+      pre_enrolled_keys = true
+    }
+  }
+
   agent {
     enabled = true
   }
@@ -67,6 +80,7 @@ resource "proxmox_virtual_environment_vm" "k8s_node_vm" {
       }
     }
     datastore_id = var.proxmox_datastore
+    interface = var.bios_type == "ovmf" ? "scsi9" : "ide2"
     user_data_file_id = proxmox_virtual_environment_file.ubuntu_cloud_init.id
   }
 
@@ -85,8 +99,9 @@ resource "proxmox_virtual_environment_vm" "k8s_node_vm" {
   keyboard_layout = "en-us"
 
   lifecycle {
-    ignore_changes = [
+    ignore_changes = [ 
       network_device,
+      initialization,
     ]
   }
 }
