@@ -102,6 +102,8 @@ resource "proxmox_virtual_environment_vm" "k8s_node_vm" {
     ignore_changes = [ 
       network_device,
       initialization,
+      vga,
+      hostpci,
     ]
   }
 }
