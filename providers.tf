@@ -1,8 +1,8 @@
-provider "opnsense" {
-  uri = var.opnsense_uri
-  user = var.opnsense_username
-  password = var.opnsense_password
-}
+# provider "opnsense" {
+#   uri = var.opnsense_uri
+#   user = var.opnsense_username
+#   password = var.opnsense_password
+# }
 
 provider "proxmox" {
   endpoint  = var.proxmox_api_endpoint

@@ -42,14 +42,14 @@ module "workers" {
   ceph_network_ip_address = each.value.ceph_network_ip_address
 }
 
-resource "opnsense_dhcp_static_map" "node_dhcp_map" {
-  interface = var.opnsense_iface
+# resource "opnsense_dhcp_static_map" "node_dhcp_map" {
+#   interface = var.opnsense_iface
 
-  for_each = merge(module.masters, module.workers)
-  mac = each.value.mac_address
-  ipaddr = each.value.ip_address
-  hostname = each.value.hostname
-}
+#   for_each = merge(module.masters, module.workers)
+#   mac = each.value.mac_address
+#   ipaddr = each.value.ip_address
+#   hostname = each.value.hostname
+# }
 
 resource "local_file" "inventory" {
   content = templatefile("${path.module}/templates/inventory.tftpl", {
