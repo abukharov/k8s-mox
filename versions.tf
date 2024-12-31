@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    opnsense = {
-      source = "gxben/opnsense"
-      version = "~> 0.3.0"
+    vyos = {
+      source = "TGNThump/vyos"
+      version = "~> 2.1.0"
     }
     proxmox = {
       source = "bpg/proxmox"

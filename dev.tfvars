@@ -1,7 +1,5 @@
-opnsense_uri = "https://connaught.cosmos.st"
-opnsense_username = "terraform"
-opnsense_password = "Qwerty+1"
-opnsense_iface = "opt2"
+vyos_shared_network_name = "dhcp_vms"
+vyos_subnet = "10.125.0.0/24"
 
 cluster_nodes = {
   "worker0" : {

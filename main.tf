@@ -42,14 +42,14 @@ module "workers" {
   ceph_network_ip_address = each.value.ceph_network_ip_address
 }
 
-# resource "opnsense_dhcp_static_map" "node_dhcp_map" {
-#   interface = var.opnsense_iface
-
-#   for_each = merge(module.masters, module.workers)
-#   mac = each.value.mac_address
-#   ipaddr = each.value.ip_address
-#   hostname = each.value.hostname
-# }
+resource "vyos_config" "node_dhcp_static_lease" {
+  for_each = merge(module.masters, module.workers)
+  path = "service dhcp-server shared-network-name ${var.vyos_shared_network_name} subnet ${var.vyos_subnet} static-mapping ${each.value.hostname}"
+  value = jsonencode({
+    "ip-address" = each.value.ip_address,
+    "mac" = lower(each.value.mac_address)
+  })
+}
 
 resource "local_file" "inventory" {
   content = templatefile("${path.module}/templates/inventory.tftpl", {

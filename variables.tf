@@ -8,28 +8,30 @@ variable "proxmox_api_token" {
   description = "Proxmox API token bpg proxmox provider with ID and token"
 }
 
-variable "opnsense_uri" {
+variable "vyos_api_endpoint" {
   type = string
   nullable = false
   sensitive = false
+  description = "VyOS API endpoint"
 }
 
-variable "opnsense_username" {
+variable "vyos_api_key" {
   type = string
   nullable = false
   sensitive = true
+  description = "VyOS API key"
 }
 
-variable "opnsense_password" {
+variable "vyos_shared_network_name" {
   type = string
   nullable = false
-  sensitive = true
+  description = "DHCP Shared Network Name"
 }
 
-variable "opnsense_iface" {
+variable "vyos_subnet" {
   type = string
   nullable = false
-  sensitive = false
+  description = "DHCP Subnet"
 }
 
 variable "cluster_nodes" {
