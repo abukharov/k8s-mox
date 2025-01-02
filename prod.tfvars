@@ -34,7 +34,7 @@ cluster_nodes = {
 cluster_masters = {
   "master-0" : {
     proxmox_node    = "balthasar"
-    disk_image      = "isostor:iso/ubuntu-24.04-server-cloudimg-amd64.img"
+    disk_image      = "isostor:iso/debian-12-genericcloud-amd64.img"
     bios_type       = "seabios"
     node_cpus       = 4
     node_memory     = 4096
