@@ -1,3 +1,15 @@
+resource "random_pet" "master_name_suffix" {
+  length = 1
+
+  for_each = var.cluster_masters
+}
+
+resource "random_pet" "node_name_suffix" {
+  length = 1
+
+  for_each = var.cluster_nodes
+}
+
 module "masters" {
   source = "./modules/k8s_node"
 
@@ -12,7 +24,7 @@ module "masters" {
   for_each = var.cluster_masters
   proxmox_node = each.value.proxmox_node
   image_file = each.value.disk_image
-  hostname = each.key
+  hostname = "kube-master-${random_pet.master_name_suffix[each.key].id}"
   cpus = each.value.node_cpus
   memory = each.value.node_memory
   bios_type = each.value.bios_type
@@ -34,7 +46,7 @@ module "workers" {
   for_each = var.cluster_nodes
   proxmox_node = each.value.proxmox_node
   image_file = each.value.disk_image
-  hostname = each.key
+  hostname = "kube-node-${random_pet.node_name_suffix[each.key].id}"
   cpus = each.value.node_cpus
   memory = each.value.node_memory
   bios_type = each.value.bios_type
@@ -53,11 +65,11 @@ resource "vyos_config" "node_dhcp_static_lease" {
 
 resource "local_file" "inventory" {
   content = templatefile("${path.module}/templates/inventory.tftpl", {
-    connection_strings_master = join("\n", formatlist("%s ansible_user=alexv ansible_host=%s etcd_member_name=etcd%d",
+    connection_strings_master = join("\n", formatlist("%s ansible_user=kubespray ansible_host=%s etcd_member_name=etcd%d",
       values(module.masters).*.fqdn,
       values(module.masters).*.ip_address,
     range(1, length(keys(module.masters)) + 1))),
-    connection_strings_worker = join("\n", formatlist("%s ansible_user=alexv ansible_host=%s",
+    connection_strings_worker = join("\n", formatlist("%s ansible_user=kubespray ansible_host=%s",
       values(module.workers).*.fqdn,
       values(module.workers).*.ip_address)),
     list_master = join("\n", formatlist("%s", values(module.masters).*.fqdn)),

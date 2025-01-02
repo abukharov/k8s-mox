@@ -25,11 +25,19 @@ users:
   - default
   - name: alexv
     groups: sudo, users, adm, admin, cdrom, dip, lxd
-    passwd: $6$rounds=500000$ORoXt6bVjvya3DEP$Kc1geFMZplrXexJG8O764dw6NMKfYWxASwhUmsELnOOkWTBKamHDCKUqyxw62SPhJAOFEQVciZFmlaPLiTx3g0
+    passwd: $6$rounds=50000$DcWCFkjR6UXQUVBu$TSIPOcrhs8eTCShqNn/4aqWnSPwrwEk0oqp1vVrdRdGVVTZ8yToSoR/nVY1tvRRS3N2UJHJWM.HfLPZHAaNrb0
     lock_passwd: false
     shell: /bin/bash
     ssh_authorized_keys:
       - ${trimspace("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDgB8pqKKhpZvitSZEL/i0lZvZjtUiVIsoX56wsYxUmr/GBIEdltTqt0SmkmWFUfU4lej0g8VGpgdB7b93an1L3qxQBAAQRjrDq7ALsyTsGjm/SD6UTnswz/1oZcsBCaCGAMZRrb6imQeG7KRQKTegwKJmaDyUkseOa8+jXI8RsrTmgmLhvUul0/iw5I6xjhfVGClR1nqOqM40LV520V2vO0dQZ4QcVG6TidcIUojiCVUTZp0gpo1akbRBZP+uvAO30UMuxwYWH8Zk9AYhhMWLdMkOC2S65lK9yeMl37CmEdp/mt0A0DxGcrLkbra/WXEANchl6Qgbe0nStdcKGu079qQA3AZd51nZLDGq9fKNPX2eM1bgxLevI1MolJnvfoLxE0AAm8FiMfbTQ52cFvauZ76Ab7fI+AGJYE1XMEqds1liOQChOW7CwOKfEcAlyBTQ/7xUCy0AhX7kZL/JdJluOmzM7vznqnG4/uooHf82rXJe4uHvaFon0AF4U23Lt+xJtBpZP2FwFXe72bj2d6CNKMdkENMFS2ZuTR1WMZ/J96MEmpqg+Ir/AsbDL5CwGXAjep73mXdSK+7cBBjt4dEqY31XH6K4ElERAz+iJKAfOO5Tal79uLUa23GJ+jCkncl2Ycd5CU6fzWeICNQtxwJtPYaFsdUxtc5/N6J+3xjmpnw== alexv@concordia.galaxy.lan")}
+    sudo: ALL=(ALL) NOPASSWD:ALL
+  - name: kubespray
+    groups: sudo, users, adm, admin, cdrom, dip, lxd
+    passwd: $6$rounds=50000$DcWCFkjR6UXQUVBu$TSIPOcrhs8eTCShqNn/4aqWnSPwrwEk0oqp1vVrdRdGVVTZ8yToSoR/nVY1tvRRS3N2UJHJWM.HfLPZHAaNrb0
+    lock_passwd: false
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ${trimspace("ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDAt0kU7Hn1kK8g8nqiveTYolZNJCAHg0leekqeSst0yARuU8bP6IGY8o+kTTQw5Rw99tIXLcNW9mlS2CjhlUn0sLKKmVpUa8XVqW+ivU3PvFUE+QbOnyl0KsgLtYBfSXIqR1G+oeDClkphyGoRvS/Lr/xsi79g6pv22GMJEAvKmiBBA3Dx1WEgLzMtd8LC6sgedTBVoIZdfHHQp3ut+zJojikLgah6jMGFgm816yGaAmQkL3ogGqv8gAm1DZqldjzji9TVtu1EOhpCerXb/x8eaguke+WgTiuXjOSfnGUog30Sfz9Hjv3BZ+UWVV5EHroSzBrdlIFFmymdRUxH4J47 alex@scirocco")}
     sudo: ALL=(ALL) NOPASSWD:ALL
 
 power_state:

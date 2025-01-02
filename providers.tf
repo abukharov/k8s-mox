@@ -11,3 +11,5 @@ provider "vyos" {
   endpoint = var.vyos_api_endpoint
   api_key  = var.vyos_api_key
 }
+
+provider "random" {}
