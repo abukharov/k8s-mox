@@ -1,6 +1,9 @@
 vyos_shared_network_name = "dhcp_vms"
 vyos_subnet = "10.125.0.0/24"
 
+domain_name = "cosmos.st" # Move to cosmi.co.in when convenient
+ipv6_prefix = "2403:5804:10c:a::/64"
+
 cluster_nodes = {
   "node-1" : {
     proxmox_node    = "caspar"

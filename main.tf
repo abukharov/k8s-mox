@@ -10,6 +10,28 @@ resource "random_pet" "node_name_suffix" {
   for_each = var.cluster_nodes
 }
 
+resource "random_integer" "master_ipv6_suffix" {
+  min = 128
+  max = 50000
+  seed = "kube-master-${random_pet.master_name_suffix[each.key].id}"
+  keepers = {
+    node_name = "kube-master-${random_pet.master_name_suffix[each.key].id}"
+  }
+
+  for_each = var.cluster_masters
+}
+
+resource "random_integer" "node_ipv6_suffix" {
+  min = 128
+  max = 50000
+  seed = "kube-node-${random_pet.node_name_suffix[each.key].id}"
+  keepers = {
+    node_name = "kube-node-${random_pet.node_name_suffix[each.key].id}"
+  }
+
+  for_each = var.cluster_nodes
+}
+
 module "masters" {
   source = "./modules/k8s_node"
 
@@ -19,7 +41,9 @@ module "masters" {
 
   proxmox_network_bridge = "vmvnet"
   proxmox_ceph_network_bridge = "cebr0"
-  domainname            = "cosmos.st"
+  domainname = var.domain_name
+  ipv6_prefix = var.ipv6_prefix
+  ipv6_suffix = random_integer.master_ipv6_suffix[each.key].result
 
   for_each = var.cluster_masters
   proxmox_node = each.value.proxmox_node
@@ -41,7 +65,9 @@ module "workers" {
 
   proxmox_network_bridge = "vmvnet"
   proxmox_ceph_network_bridge = "cebr0"
-  domainname            = "cosmos.st"
+  domainname = var.domain_name
+  ipv6_prefix = var.ipv6_prefix
+  ipv6_suffix = random_integer.node_ipv6_suffix[each.key].result
 
   for_each = var.cluster_nodes
   proxmox_node = each.value.proxmox_node

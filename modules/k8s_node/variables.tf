@@ -34,6 +34,16 @@ variable "domainname" {
   type = string
 }
 
+variable "ipv6_prefix" {
+  description = "IPv6 prefix for the k8s node"
+  type = string
+}
+
+variable "ipv6_suffix" {
+  description = "IPv6 suffix for the k8s node"
+  type = string
+}
+
 variable "cpus" {
   description = "Number of vcpus for the node"
   type = number

@@ -13,7 +13,6 @@ resource "proxmox_virtual_environment_file" "ubuntu_cloud_init" {
   }
 }
 
-
 resource "proxmox_virtual_environment_vm" "k8s_node_vm" {
   name        = var.hostname
   description = "k8s node Managed by Terraform"
@@ -73,6 +72,9 @@ resource "proxmox_virtual_environment_vm" "k8s_node_vm" {
       ipv4 {
         address = "dhcp"
       }
+      ipv6 {
+        address = cidrhost(var.ipv6_prefix, var.ipv6_suffix)
+      }
     }
     ip_config {
       ipv4 {
@@ -99,7 +101,7 @@ resource "proxmox_virtual_environment_vm" "k8s_node_vm" {
   keyboard_layout = "en-us"
 
   lifecycle {
-    ignore_changes = [ 
+    ignore_changes = [
       network_device,
       initialization,
       vga,
@@ -124,6 +126,10 @@ output "fqdn" {
 
 output "ip_address" {
   value = proxmox_virtual_environment_vm.k8s_node_vm.ipv4_addresses[index(proxmox_virtual_environment_vm.k8s_node_vm.network_interface_names, "eth0")][0]
+}
+
+output "ipv6_address" {
+  value = proxmox_virtual_environment_vm.k8s_node_vm.ipv6_addresses[index(proxmox_virtual_environment_vm.k8s_node_vm.network_interface_names, "eth0")][0]
 }
 
 output "mac_address" {

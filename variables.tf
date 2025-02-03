@@ -34,6 +34,16 @@ variable "vyos_subnet" {
   description = "DHCP Subnet"
 }
 
+variable "domain_name" {
+  description = "Domain name"
+  type = string
+}
+
+variable "ipv6_prefix" {
+  description = "IPv6 prefix"
+  type = string
+}
+
 variable "cluster_nodes" {
   type = map(object({
     proxmox_node = string
